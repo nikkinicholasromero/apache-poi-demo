@@ -1,5 +1,6 @@
-package com.demo;
+package com.demo.parser;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.FileInputStream;
@@ -7,7 +8,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XlsxParser implements Parser {
+class XlsxParser implements FileParser {
+    private final List<String> supportedFileTypes = List.of("xlsx", "xls");
+
+    @Override
+    public boolean isSupported(String filePath) {
+        String fileExtension = FilenameUtils.getExtension(filePath);
+        return supportedFileTypes.contains(fileExtension.toLowerCase());
+    }
+
     @Override
     public List<List<List<String>>> parse(String filePath) {
         try (InputStream inputStream = new FileInputStream(filePath)) {

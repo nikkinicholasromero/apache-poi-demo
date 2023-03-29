@@ -1,12 +1,12 @@
 package com.demo;
 
+import com.demo.parser.Parser;
+
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        Parser xlsxParser = new XlsxParser();
-        String filePath = "/Users/nikki/Desktop/Data.xlsx";
-        List<List<List<String>>> data = xlsxParser.parse(filePath);
+        List<List<List<String>>> data = new Parser().parse("/Users/nikki/Desktop/Data.xlsx");
         System.out.println(data);
     }
 }
