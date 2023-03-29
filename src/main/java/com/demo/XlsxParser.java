@@ -22,25 +22,19 @@ public class XlsxParser {
 
     private static List<List<List<String>>> parseWorkbook(Workbook workbook) {
         List<List<List<String>>> data = new ArrayList<>();
-        for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-            data.add(parseSheet(workbook.getSheetAt(i)));
-        }
+        workbook.iterator().forEachRemaining(sheet -> data.add(parseSheet(sheet)));
         return data;
     }
 
     private static List<List<String>> parseSheet(Sheet sheet) {
         List<List<String>> data = new ArrayList<>();
-        for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
-            data.add(parseRow(sheet.getRow(i)));
-        }
+        sheet.iterator().forEachRemaining(row -> data.add(parseRow(row)));
         return data;
     }
 
     private static List<String> parseRow(Row row) {
         List<String> data = new ArrayList<>();
-        for (int j = 0; j < row.getLastCellNum(); j++) {
-            data.add(parseCell(row.getCell(j)));
-        }
+        row.iterator().forEachRemaining(cell -> data.add(parseCell(cell)));
         return data;
     }
 
